@@ -33,7 +33,7 @@ public class VerticalRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
         public CellViewHolder(View itemView) {
             super(itemView);
 
-            mRecyclerView = (RecyclerView) itemView.findViewById(R.id.recyclerView);
+            mRecyclerView = itemView.findViewById(R.id.recyclerView);
         }
     }
 

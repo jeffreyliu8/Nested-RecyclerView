@@ -26,7 +26,7 @@ public class HorizontalRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
 
         public CellViewHolder(View itemView) {
             super(itemView);
-            textView = (TextView) itemView.findViewById(R.id.text);
+            textView = itemView.findViewById(R.id.text);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
         }
