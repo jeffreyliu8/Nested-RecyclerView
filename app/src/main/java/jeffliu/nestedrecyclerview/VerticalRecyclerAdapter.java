@@ -34,6 +34,10 @@ public class VerticalRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
             super(itemView);
 
             mRecyclerView = itemView.findViewById(R.id.recyclerView);
+
+            //optional
+            StartSnapHelper snapHelper = new StartSnapHelper();
+            snapHelper.attachToRecyclerView(mRecyclerView);
         }
     }
 
