@@ -35,6 +35,9 @@ public class VerticalRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
 
             mRecyclerView = itemView.findViewById(R.id.recyclerView);
 
+            // this is needed if you are working with CollapsingToolbarLayout, I am adding this here just in case I forget.
+            mRecyclerView.setNestedScrollingEnabled(false);
+
             //optional
             StartSnapHelper snapHelper = new StartSnapHelper();
             snapHelper.attachToRecyclerView(mRecyclerView);
