@@ -29,11 +29,24 @@ public class VerticalRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
     private class CellViewHolder extends RecyclerView.ViewHolder {
 
         private RecyclerView mRecyclerView;
+        private HorizontalRecyclerAdapter adapter;
 
         public CellViewHolder(View itemView) {
             super(itemView);
 
             mRecyclerView = itemView.findViewById(R.id.recyclerView);
+
+
+            mRecyclerView.setHasFixedSize(true);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
+            layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            mRecyclerView.setLayoutManager(layoutManager);
+
+
+            adapter = new HorizontalRecyclerAdapter();
+            mRecyclerView.setAdapter(adapter);
+            adapter.SetOnItemClickListener(mItemClickListener);
+
 
             // this is needed if you are working with CollapsingToolbarLayout, I am adding this here just in case I forget.
             mRecyclerView.setNestedScrollingEnabled(false);
@@ -41,6 +54,10 @@ public class VerticalRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
             //optional
             StartSnapHelper snapHelper = new StartSnapHelper();
             snapHelper.attachToRecyclerView(mRecyclerView);
+        }
+
+        public void setData(ArrayList<Integer> list) {
+            adapter.updateList(list);
         }
     }
 
@@ -61,14 +78,7 @@ public class VerticalRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
             default: {
                 CellViewHolder cellViewHolder = (CellViewHolder) viewHolder;
 
-                cellViewHolder.mRecyclerView.setHasFixedSize(true);
-                LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
-                layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-                cellViewHolder.mRecyclerView.setLayoutManager(layoutManager);
-                HorizontalRecyclerAdapter adapter = new HorizontalRecyclerAdapter(mList.get(position));
-                cellViewHolder.mRecyclerView.setAdapter(adapter);
-                adapter.SetOnItemClickListener(mItemClickListener);
-
+                cellViewHolder.setData(mList.get(position));
 
                 int lastSeenFirstPosition = listPosition.get(position, 0);
                 if (lastSeenFirstPosition >= 0) {

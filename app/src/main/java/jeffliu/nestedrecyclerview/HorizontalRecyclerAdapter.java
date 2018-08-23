@@ -17,8 +17,12 @@ public class HorizontalRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
     private ArrayList<Integer> mList;
     private OnItemClickListener mItemClickListener;
 
-    public HorizontalRecyclerAdapter(ArrayList<Integer> list) {
+    public HorizontalRecyclerAdapter() {
+    }
+
+    public void updateList(ArrayList<Integer> list) {
         this.mList = list;
+        notifyDataSetChanged();
     }
 
     private class CellViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
