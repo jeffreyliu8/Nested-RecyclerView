@@ -30,6 +30,7 @@ public class VerticalRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         private RecyclerView mRecyclerView;
         private HorizontalRecyclerAdapter adapter;
+        private LinearLayoutManager layoutManager;
 
         public CellViewHolder(View itemView) {
             super(itemView);
@@ -38,14 +39,14 @@ public class VerticalRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
 
 
             mRecyclerView.setHasFixedSize(true);
-            LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
+            layoutManager = new LinearLayoutManager(mContext);
             layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             mRecyclerView.setLayoutManager(layoutManager);
 
 
             adapter = new HorizontalRecyclerAdapter();
-            mRecyclerView.setAdapter(adapter);
             adapter.SetOnItemClickListener(mItemClickListener);
+            mRecyclerView.setAdapter(adapter);
 
 
             // this is needed if you are working with CollapsingToolbarLayout, I am adding this here just in case I forget.
@@ -82,7 +83,7 @@ public class VerticalRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
 
                 int lastSeenFirstPosition = listPosition.get(position, 0);
                 if (lastSeenFirstPosition >= 0) {
-                    cellViewHolder.mRecyclerView.scrollToPosition(lastSeenFirstPosition);
+                    cellViewHolder.layoutManager.scrollToPositionWithOffset(lastSeenFirstPosition, 0);
                 }
                 break;
             }
@@ -93,8 +94,7 @@ public class VerticalRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
     public void onViewRecycled(RecyclerView.ViewHolder viewHolder) {
         final int position = viewHolder.getAdapterPosition();
         CellViewHolder cellViewHolder = (CellViewHolder) viewHolder;
-        LinearLayoutManager layoutManager = ((LinearLayoutManager) cellViewHolder.mRecyclerView.getLayoutManager());
-        int firstVisiblePosition = layoutManager.findFirstVisibleItemPosition();
+        int firstVisiblePosition = cellViewHolder.layoutManager.findFirstVisibleItemPosition();
         listPosition.put(position, firstVisiblePosition);
 
         super.onViewRecycled(viewHolder);
