@@ -21,9 +21,11 @@ public class VerticalRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
     private SparseIntArray listPosition = new SparseIntArray();
     private HorizontalRecyclerAdapter.OnItemClickListener mItemClickListener;
     private Context mContext;
+    private RecyclerView.RecycledViewPool viewPool;
 
     public VerticalRecyclerAdapter(ArrayList<ArrayList<Integer>> list) {
         this.mList = list;
+        viewPool = new RecyclerView.RecycledViewPool();
     }
 
     private class CellViewHolder extends RecyclerView.ViewHolder {
@@ -36,7 +38,7 @@ public class VerticalRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
             super(itemView);
 
             mRecyclerView = itemView.findViewById(R.id.recyclerView);
-
+            mRecyclerView.setRecycledViewPool(viewPool);
 
             mRecyclerView.setHasFixedSize(true);
             layoutManager = new LinearLayoutManager(mContext);
