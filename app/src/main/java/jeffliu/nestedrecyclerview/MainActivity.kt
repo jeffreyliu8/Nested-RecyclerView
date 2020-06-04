@@ -1,6 +1,7 @@
 package jeffliu.nestedrecyclerview
 
 import android.os.Bundle
+import android.os.StrictMode
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setSupportActionBar(toolbar)
+
+        turnOnStrictMode()
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -44,5 +47,16 @@ class MainActivity : AppCompatActivity() {
         })
         recyclerView.adapter = adapter
         adapter.updateList(list)
+    }
+
+    private fun turnOnStrictMode() {
+        StrictMode.setThreadPolicy(
+                StrictMode.ThreadPolicy.Builder().detectAll()
+                        .penaltyLog().penaltyFlashScreen().build()
+        )
+        StrictMode.setVmPolicy(
+                StrictMode.VmPolicy.Builder().detectAll()
+                        .penaltyLog().build()
+        )
     }
 }

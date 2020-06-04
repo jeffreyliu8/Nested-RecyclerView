@@ -10,12 +10,6 @@ class StartSnapHelper : LinearSnapHelper() {
     private var mVerticalHelper: OrientationHelper? = null
     private var mHorizontalHelper: OrientationHelper? = null
 
-
-    @Throws(IllegalStateException::class)
-    override fun attachToRecyclerView(recyclerView: RecyclerView?) {
-        super.attachToRecyclerView(recyclerView)
-    }
-
     override fun calculateDistanceToFinalSnap(layoutManager: RecyclerView.LayoutManager,
                                               targetView: View): IntArray? {
         val out = IntArray(2)
