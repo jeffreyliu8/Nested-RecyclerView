@@ -33,16 +33,16 @@ class MainActivity : AppCompatActivity() {
         recyclerView.setHasFixedSize(true)
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
-        val adapter = VerticalRecyclerAdapter(list)
-        recyclerView.adapter = adapter
-        adapter.SetOnItemClickListener(object : HorizontalAdapter.OnItemClickListener {
+        val adapter = OuterAdapter(object : InnerAdapter.OnItemClickListener {
             override fun onItemClick(view: View, data: Int) {
-                Toast.makeText(applicationContext, "click $data", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MainActivity, "click $data", Toast.LENGTH_SHORT).show()
             }
 
             override fun onItemLongClick(view: View, data: Int) {
-                Toast.makeText(applicationContext, "long click $data", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MainActivity, "long click $data", Toast.LENGTH_SHORT).show()
             }
         })
+        recyclerView.adapter = adapter
+        adapter.updateList(list)
     }
 }

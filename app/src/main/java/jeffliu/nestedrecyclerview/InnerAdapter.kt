@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*
 
-class HorizontalAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class InnerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var mList: ArrayList<Int>? = null
     private var mItemClickListener: OnItemClickListener? = null
 
@@ -24,7 +24,7 @@ class HorizontalAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         mList?.let {
             if (holder is CellViewHolder) {
-                holder.bindViews(it[position], listener = mItemClickListener)
+                holder.bindViews(it[position])
             }
         }
     }
@@ -45,27 +45,27 @@ class HorizontalAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     private interface UpdateViewHolder {
-        fun bindViews(data: Int, listener: OnItemClickListener?)
+        fun bindViews(data: Int)
     }
 
-    private class CellViewHolder(view: View) : RecyclerView.ViewHolder(view), UpdateViewHolder, View.OnClickListener, OnLongClickListener {
+    private inner class CellViewHolder(view: View) : RecyclerView.ViewHolder(view), UpdateViewHolder, View.OnClickListener, OnLongClickListener {
         private var num = 0
-        private var listener: OnItemClickListener? = null
-        override fun bindViews(data: Int, listener: OnItemClickListener?) {
+
+        override fun bindViews(data: Int) {
             num = data
             val textView: TextView = itemView.findViewById(R.id.text)
-            this.listener = listener
+
             textView.text = data.toString()
             itemView.setOnClickListener(this)
             itemView.setOnLongClickListener(this)
         }
 
         override fun onClick(v: View) {
-            listener?.onItemClick(v, num)
+            mItemClickListener?.onItemClick(v, num)
         }
 
         override fun onLongClick(v: View): Boolean {
-            listener?.onItemLongClick(v, num)
+            mItemClickListener?.onItemLongClick(v, num)
             return true
         }
     }
