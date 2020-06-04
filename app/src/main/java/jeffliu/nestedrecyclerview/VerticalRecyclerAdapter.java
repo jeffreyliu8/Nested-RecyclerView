@@ -19,7 +19,7 @@ public class VerticalRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     private ArrayList<ArrayList<Integer>> mList;
     private SparseIntArray listPosition = new SparseIntArray();
-    private HorizontalRecyclerAdapter.OnItemClickListener mItemClickListener;
+    private HorizontalAdapter.OnItemClickListener mItemClickListener;
     private Context mContext;
     private RecyclerView.RecycledViewPool viewPool;
 
@@ -31,7 +31,7 @@ public class VerticalRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
     private class CellViewHolder extends RecyclerView.ViewHolder {
 
         private RecyclerView mRecyclerView;
-        private HorizontalRecyclerAdapter adapter;
+        private HorizontalAdapter adapter;
         private LinearLayoutManager layoutManager;
 
         public CellViewHolder(View itemView) {
@@ -46,8 +46,8 @@ public class VerticalRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
             mRecyclerView.setLayoutManager(layoutManager);
 
 
-            adapter = new HorizontalRecyclerAdapter();
-            adapter.SetOnItemClickListener(mItemClickListener);
+            adapter = new HorizontalAdapter();
+            adapter.setOnItemClickListener(mItemClickListener);
             mRecyclerView.setAdapter(adapter);
 
 
@@ -112,7 +112,7 @@ public class VerticalRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
 
 
     // for both short and long click
-    public void SetOnItemClickListener(final HorizontalRecyclerAdapter.OnItemClickListener mItemClickListener) {
+    public void SetOnItemClickListener(final HorizontalAdapter.OnItemClickListener mItemClickListener) {
         this.mItemClickListener = mItemClickListener;
     }
 }
